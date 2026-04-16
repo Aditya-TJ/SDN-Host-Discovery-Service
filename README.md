@@ -1,92 +1,195 @@
-# Host Discovery Service using Ryu Controller and Mininet
+# 🚀 SDN Host Discovery Service using Mininet & Ryu
 
-## Project Overview
+A Software Defined Networking (SDN) project that implements a **Host Discovery Service** using the **Ryu Controller** and **Mininet**. The controller dynamically detects connected hosts, learns host information, and maintains a live host database.
 
-This project implements a Host Discovery Service in an SDN environment using Mininet and the Ryu Controller.
+---
 
-The controller automatically detects connected hosts and stores:
+## 📌 Project Objective
+
+To build an SDN-based host discovery mechanism that automatically identifies hosts connected to the network and stores:
 
 * MAC Address
 * IP Address
 * Switch ID
 * Port Number
 
-## Problem Statement
+This demonstrates centralized SDN control and dynamic network visibility.
 
-Design and implement a Host Discovery Service that automatically detects hosts in an SDN network and maintains an updated host database.
+---
 
-## Tools Used
+## 🛠️ Tech Stack
 
-* Ubuntu Linux
-* Mininet
-* Ryu Controller
-* Open vSwitch
-* Wireshark
-* Python
+* **Ubuntu Linux**
+* **Mininet**
+* **Ryu Controller**
+* **Open vSwitch**
+* **Python**
+* **Wireshark**
 
-## Network Topology
+---
 
-Scenario 1: Single switch with 3 hosts
+## 🌐 Network Topology
 
-h1, h2, h3 connected to s1
+### Scenario 1: 3 Hosts
 
-Scenario 2: Single switch with 4 hosts
+```text
+h1 ---\
+h2 ---- s1
+h3 ---/
+```
 
-h1, h2, h3, h4 connected to s1
+### Scenario 2: 4 Hosts (Dynamic Update)
 
-## Commands Used
+```text
+h1 ---\
+h2 ----\
+h3 ----- s1
+h4 ----/
+```
 
-Start Controller:
+---
 
+## ⚙️ Installation & Setup
+
+### 1️⃣ Start Ryu Controller
+
+```bash
 ~/.local/bin/ryu-manager host_discovery.py
+```
 
-Run 3-host topology:
+### 2️⃣ Run Mininet (3 Hosts)
 
+```bash
 sudo mn --topo single,3 --controller remote
+```
 
-Run 4-host topology:
+### 3️⃣ Test Network
 
-sudo mn -c
-sudo mn --topo single,4 --controller remote
-
-Testing:
-
+```bash
 pingall
 nodes
 net
 dump
 iperf
+```
 
-Flow Table:
+### 4️⃣ Dynamic Host Update (4 Hosts)
 
+```bash
+exit
+sudo mn -c
+sudo mn --topo single,4 --controller remote
+pingall
+```
+
+---
+
+## 🧠 Core Functionalities
+
+✅ Detects newly connected hosts automatically
+✅ Maintains host database dynamically
+✅ Learns MAC-to-port mapping
+✅ Handles Packet-In events
+✅ Forwards packets intelligently
+✅ Supports topology changes
+
+---
+
+## 📊 Validation & Results
+
+### ✔ Scenario 1
+
+* 3 hosts discovered successfully
+* Ping successful
+* Controller logs updated
+
+### ✔ Scenario 2
+
+* Topology expanded to 4 hosts
+* New host auto-detected
+* Network remained functional
+
+---
+
+## 📈 Performance Analysis
+
+### Latency
+
+```bash
+pingall
+```
+
+### Throughput
+
+```bash
+iperf
+```
+
+### Flow Table Inspection
+
+```bash
 sudo ovs-ofctl -O OpenFlow13 dump-flows s1
+```
 
-## Functionality
+### Packet Capture
 
-* Detects new hosts dynamically
-* Maintains host database
-* Learns MAC and port mapping
-* Forwards packets intelligently
-* Works with dynamic topology updates
+Observed using Wireshark:
 
-## Validation
+* ARP Packets
+* ICMP Packets
+* OpenFlow Messages
 
-Scenario 1:
-3 hosts detected successfully.
+---
 
-Scenario 2:
-4 hosts detected successfully after topology update.
+## 📂 Project Structure
 
-Ping connectivity successful.
+```text
+SDN-Host-Discovery-Service/
+│── host_discovery.py
+│── README.md
+└── screenshots/
+```
 
-## Wireshark Observation
+---
 
-Captured:
+## 📸 Proof of Execution
 
-* ARP packets
-* ICMP packets
-* OpenFlow packets
+Screenshots available in the `screenshots/` folder:
 
-## Conclusion
+* Controller Logs
+* Ping Results
+* Wireshark Captures
+* Flow Tables
+* Throughput Results
 
-The Host Discovery Service was successfully implemented using Mininet and Ryu Controller. Hosts were dynamically detected and network behavior was validated successfully.
+---
+
+## 🎯 Conclusion
+
+The Host Discovery Service was successfully implemented using Mininet and Ryu Controller. The controller dynamically identified hosts, maintained accurate host records, and handled topology changes efficiently.
+
+This project highlights the power of SDN through centralized control, programmability, and real-time network awareness.
+
+---
+
+## 🔮 Future Enhancements
+
+* GUI Dashboard
+* Real-time Host Join/Leave Alerts
+* Traffic Analytics
+* Security Policy Integration
+
+---
+
+## 👨‍💻 Author
+
+**Aditya TJ**
+
+---
+
+## 📚 References
+
+* Mininet Documentation
+* Ryu SDN Framework
+* OpenFlow Specification
+.
